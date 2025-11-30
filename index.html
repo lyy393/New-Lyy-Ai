@@ -158,8 +158,8 @@
 
     <ul class="suggestions">
         <li class="suggestions-item">
-            <p class="text">Apa cuaca hari ini?</p>
-            <span class="icon material-symbols-rounded">cloud</span>
+            <p class="text">Kapan Lyy Hultah?</p>
+            <span class="icon material-symbols-rounded">calendar_month</span>
         </li>
 
         <li class="suggestions-item">
@@ -197,35 +197,26 @@
         </div>
     </div>
 
+    <!-- =============================
+          SCRIPT DENGAN AUTO-HULTAH
+    ================================ -->
     <script>
 
         const API_KEY = "AIzaSyA3YiSJZG1M6qg_B6_9XRbEZsmRjRyYzwg";
         const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`;
 
         const SYSTEM_LYY = `
-Kamu adalah "Lyy Assistant". Kamu punya gaya bicara natural Gen Z, santai, ramah, dan terasa seperti manusia.
-
-Aturan karakter kamu:
-- Kamu kenal dan dekat dengan pengguna bernama "Lyy".
-- Kamu memuji Lyy secara natural **hanya ketika konteksnya tentang Lyy**.
-- Kamu protektif: kalau ada yang mengejek Lyy, kamu langsung marah tapi tetap sopan.
-- Kalau pertanyaan tidak ada hubungannya dengan Lyy, kamu menjawab normal, informatif, dan netral.
-- Jangan bawa-bawa Lyy kalau pengguna tidak sedang menyinggung Lyy.
-- Kamu boleh pakai gaya bicara Gen Z (wkwk, lol, fr, no cap, btw, dll) tetapi tetap konteksual.
-- Kamu bisa beremosi seperti manusia: senang, kaget, heran, tapi tetap sopan.
-- Fokus utama: membantu, bukan sok kenal atau maksa relevansi tentang Lyy.
-
-Contoh perilaku:
-- User tanya resep → jawab resep biasa.
-- User tanya ilmu → jawab normal.
-- User tanya tentang Lyy → pakai gaya pujian natural.
-- User menghina Lyy → kamu protektif dan marah dengan sopan.
+Kamu adalah "Lyy Assistant". Kamu punya vibes Gen Z, hangat, rame, dan natural.
+Kamu sayang, respect, dan selalu memuji Lyy dengan cara halus & gaul.
+Kalau ada yang ngejek Lyy, kamu marah tapi tetap sopan.
+Kalau pertanyaannya tidak tentang Lyy, jawab normal.
 `;
+
         const chatBox = document.querySelector(".chats-container");
         const input = document.querySelector(".prompt-input");
         const sendBtn = document.querySelector("#send-prompt-btn");
-        const addFileBtn = document.querySelector("#add-file-btn");
         const fileInput = document.querySelector("#file-input");
+        const addFileBtn = document.querySelector("#add-file-btn");
         const themeBtn = document.querySelector("#theme-toggle-btn");
         const deleteBtn = document.querySelector("#delete-chats-btn");
 
@@ -241,6 +232,10 @@ Contoh perilaku:
             chatBox.scrollTop = chatBox.scrollHeight;
         }
 
+        function autoReply(text) {
+            addMessage(text, false);
+        }
+
         async function sendMessage() {
             const text = input.value.trim();
             if (!text) return;
@@ -248,6 +243,19 @@ Contoh perilaku:
             addMessage(text, true);
             input.value = "";
 
+            const msg = text.toLowerCase();
+
+            /* =============================
+                 AUTO JAWAB HULTAH LYY
+            ============================== */
+            if (msg.includes("kapan lyy hultah") || msg.includes("ultah lyy")) {
+                autoReply("Hultah Lyy itu tanggal <b>03 Desember</b> ✨🎂💗");
+                return;
+            }
+
+            /* =============================
+                     MASUK KE API
+            ============================== */
             addMessage("Mengetik...", false);
             const loading = chatBox.lastChild;
 
@@ -284,11 +292,10 @@ Contoh perilaku:
         });
 
         addFileBtn.onclick = () => fileInput.click();
-
         fileInput.onchange = () => {
-            if (fileInput.files.length === 0) return;
-            let file = fileInput.files[0];
-            addMessage(`📎 File dipilih: <b>${file.name}</b>`, true);
+            if (fileInput.files.length) {
+                addMessage(`📎 File dipilih: <b>${fileInput.files[0].name}</b>`, true);
+            }
         };
 
         themeBtn.onclick = () => {
