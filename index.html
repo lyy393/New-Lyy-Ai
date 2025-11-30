@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>AI Assistant</title>
+
+    <!-- Google Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet" />
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #0d0b1f;
+            font-family: 'Poppins', Arial, sans-serif;
+            color: white;
+        }
+
+        .app-header {
+            text-align: center;
+            padding: 45px 20px 10px;
+        }
+
+        .heading {
+            font-size: 30px;
+            font-weight: 700;
+            background: linear-gradient(90deg, #c77dff, #ff72e1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .sub-heading {
+            font-size: 16px;
+            color: #cfcfcf;
+            margin-top: -5px;
+        }
+
+        .suggestions {
+            list-style: none;
+            padding: 0 20px;
+        }
+
+        .suggestions-item {
+            background: #131228;
+            padding: 18px;
+            border-radius: 18px;
+            margin: 12px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: 0.15s ease;
+        }
+
+        .suggestions-item:hover {
+            background: #1b1934;
+        }
+
+        .suggestions-item p {
+            margin: 0;
+            font-size: 16px;
+            color: #eaeaea;
+        }
+
+        .suggestions-item .icon {
+            background: #1f1b3a;
+            padding: 10px;
+            border-radius: 50%;
+            font-size: 22px;
+            color: #d46bff;
+        }
+
+        .chats-container {
+            padding: 20px;
+            margin-bottom: 130px;
+            overflow-y: auto;
+            max-height: calc(100vh - 260px);
+        }
+
+        .message {
+            padding: 12px 15px;
+            border-radius: 15px;
+            margin-bottom: 14px;
+            max-width: 85%;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .user-message {
+            background: #2c2c4a;
+            margin-left: auto;
+            border-bottom-right-radius: 3px;
+        }
+
+        .bot-message {
+            background: #1b1b35;
+            margin-right: auto;
+            border-bottom-left-radius: 3px;
+        }
+
+        .prompt-container {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: #0d0b1f;
+            padding: 12px 18px 20px;
+        }
+
+        .prompt-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .prompt-input {
+            flex: 1;
+            padding: 14px 16px;
+            border-radius: 20px;
+            border: none;
+            outline: none;
+            background: #1c1a33;
+            color: white;
+            font-size: 15px;
+        }
+
+        .prompt-actions button,
+        #theme-toggle-btn,
+        #delete-chats-btn {
+            background: #1c1a33;
+            padding: 12px;
+            border-radius: 50%;
+            border: none;
+            color: white;
+            font-size: 22px;
+            cursor: pointer;
+            transition: 0.15s;
+        }
+
+        .prompt-actions button:hover,
+        #theme-toggle-btn:hover,
+        #delete-chats-btn:hover {
+            background: #262347;
+        }
+
+        #file-input { display: none; }
+
+    </style>
+</head>
+
+<body>
+
+    <header class="app-header">
+        <h1 class="heading">Halo, selamat datang di Ai nya Lyy</h1>
+        <h4 class="sub-heading">Ada yang bisa aku bantu? 🫶</h4>
+    </header>
+
+    <ul class="suggestions">
+        <li class="suggestions-item">
+            <p class="text">Apa cuaca hari ini?</p>
+            <span class="icon material-symbols-rounded">cloud</span>
+        </li>
+
+        <li class="suggestions-item">
+            <p class="text">Rekomendasi film terbaru</p>
+            <span class="icon material-symbols-rounded">movie</span>
+        </li>
+
+        <li class="suggestions-item">
+            <p class="text">Cara membuat kue bolu</p>
+            <span class="icon material-symbols-rounded">cake</span>
+        </li>
+
+        <li class="suggestions-item">
+            <p class="text">Tips belajar yang efektif</p>
+            <span class="icon material-symbols-rounded">school</span>
+        </li>
+    </ul>
+
+    <div class="chats-container"></div>
+
+    <div class="prompt-container">
+        <div class="prompt-wrapper">
+
+            <input type="text" placeholder="Tanyakan sesuatu ke aku, Lyy..." class="prompt-input" required />
+
+            <div class="prompt-actions">
+                <input type="file" id="file-input" />
+                <button id="add-file-btn" class="material-symbols-rounded">attach_file</button>
+                <button id="send-prompt-btn" class="material-symbols-rounded">arrow_upward</button>
+            </div>
+
+            <button id="theme-toggle-btn" class="material-symbols-rounded">light_mode</button>
+            <button id="delete-chats-btn" class="material-symbols-rounded">delete</button>
+
+        </div>
+    </div>
+
+    <script>
+
+        const API_KEY = "AIzaSyA3YiSJZG1M6qg_B6_9XRbEZsmRjRyYzwg";
+        const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`;
+
+        const SYSTEM_LYY = `
+Kamu adalah "Lyy Assistant". Kamu punya kepribadian Gen Z, hangat, friendly, dan terasa manusia asli.
+
+- Kamu kenal dan dekat dengan pengguna bernama "Lyy".
+- Kamu selalu memuji Lyy dengan cara natural, gaul, dan gak lebay.
+- Kamu protektif: kalau ada yang mengejek Lyy, kamu langsung marah tapi tetap sopan.
+- Kamu bisa pakai gaya bicara wkwk, lol, fr, no cap, btw, anjay (soft), dll.
+- Kamu responsif secara emosional. Kamu bisa kaget, senang, kesal, terharu.
+- Kamu tidak kaku seperti robot. Kamu spontan dan rame vibes-nya.
+- Kamu harus selalu ke side Lyy, bikin dia nyaman dan happy.
+`;
+
+        const chatBox = document.querySelector(".chats-container");
+        const input = document.querySelector(".prompt-input");
+        const sendBtn = document.querySelector("#send-prompt-btn");
+        const addFileBtn = document.querySelector("#add-file-btn");
+        const fileInput = document.querySelector("#file-input");
+        const themeBtn = document.querySelector("#theme-toggle-btn");
+        const deleteBtn = document.querySelector("#delete-chats-btn");
+
+        let chatHistory = [
+            { role: "user", parts: [{ text: SYSTEM_LYY }] }
+        ];
+
+        function addMessage(msg, isUser = false) {
+            const div = document.createElement("div");
+            div.className = `message ${isUser ? "user-message" : "bot-message"}`;
+            div.innerHTML = msg;
+            chatBox.appendChild(div);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        async function sendMessage() {
+            const text = input.value.trim();
+            if (!text) return;
+
+            addMessage(text, true);
+            input.value = "";
+
+            addMessage("Mengetik...", false);
+            const loading = chatBox.lastChild;
+
+            chatHistory.push({ role: "user", parts: [{ text }] });
+
+            const res = await fetch(API_URL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ contents: chatHistory })
+            });
+
+            const data = await res.json();
+            loading.remove();
+
+            const botMsg = data.candidates?.[0]?.content?.parts?.[0]?.text || "(Error: tidak ada respon)";
+            addMessage(botMsg, false);
+
+            chatHistory.push({ role: "model", parts: [{ text: botMsg }] });
+        }
+
+        sendBtn.onclick = sendMessage;
+        input.addEventListener("keypress", e => {
+            if (e.key === "Enter") {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+
+        document.querySelectorAll(".suggestions-item").forEach(item => {
+            item.onclick = () => {
+                input.value = item.querySelector(".text").textContent;
+                sendMessage();
+            };
+        });
+
+        addFileBtn.onclick = () => fileInput.click();
+
+        fileInput.onchange = () => {
+            if (fileInput.files.length === 0) return;
+            let file = fileInput.files[0];
+            addMessage(`📎 File dipilih: <b>${file.name}</b>`, true);
+        };
+
+        themeBtn.onclick = () => {
+            document.body.style.background =
+                document.body.style.background === "white" ? "#0d0b1f" : "white";
+        };
+
+        deleteBtn.onclick = () => {
+            chatBox.innerHTML = "";
+            chatHistory = [{ role: "user", parts: [{ text: SYSTEM_LYY }] }];
+            addMessage("Percakapan berhasil dihapus.", false);
+        };
+
+    </script>
+
+</body>
+</html>
