@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+                                <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8" />
@@ -18,11 +18,7 @@
             color: white;
         }
 
-        .app-header {
-            text-align: center;
-            padding: 45px 20px 10px;
-        }
-
+        .app-header { text-align: center; padding: 45px 20px 10px; }
         .heading {
             font-size: 30px;
             font-weight: 700;
@@ -30,286 +26,200 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+        .sub-heading { font-size: 16px; color: #cfcfcf; margin-top: -5px; }
 
-        .sub-heading {
-            font-size: 16px;
-            color: #cfcfcf;
-            margin-top: -5px;
-        }
-
-        .suggestions {
-            list-style: none;
-            padding: 0 20px;
-        }
-
+        .suggestions { list-style: none; padding: 0 20px; }
         .suggestions-item {
-            background: #131228;
-            padding: 18px;
-            border-radius: 18px;
-            margin: 12px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            transition: 0.15s ease;
+            background: #131228; padding: 18px; border-radius: 18px;
+            margin: 12px 0; display: flex; justify-content: space-between;
+            align-items: center; cursor: pointer; transition: 0.15s ease;
         }
+        .suggestions-item:hover { background: #1b1934; }
 
-        .suggestions-item:hover {
-            background: #1b1934;
-        }
-
-        .suggestions-item p {
-            margin: 0;
-            font-size: 16px;
-            color: #eaeaea;
-        }
-
-        .suggestions-item .icon {
-            background: #1f1b3a;
-            padding: 10px;
-            border-radius: 50%;
-            font-size: 22px;
-            color: #d46bff;
+        .suggestions-item p { margin: 0; font-size: 16px; color: #eaeaea; }
+        .icon {
+            background: #1f1b3a; padding: 10px; border-radius: 50%;
+            font-size: 22px; color: #d46bff;
         }
 
         .chats-container {
-            padding: 20px;
-            margin-bottom: 130px;
-            overflow-y: auto;
-            max-height: calc(100vh - 260px);
+            padding: 20px; margin-bottom: 130px;
+            overflow-y: auto; max-height: calc(100vh - 260px);
         }
 
         .message {
-            padding: 12px 15px;
-            border-radius: 15px;
-            margin-bottom: 14px;
-            max-width: 85%;
-            font-size: 14px;
-            line-height: 1.5;
+            padding: 12px 15px; border-radius: 15px;
+            margin-bottom: 14px; max-width: 85%;
+            font-size: 14px; line-height: 1.5;
         }
-
-        .user-message {
-            background: #2c2c4a;
-            margin-left: auto;
-            border-bottom-right-radius: 3px;
-        }
-
-        .bot-message {
-            background: #1b1b35;
-            margin-right: auto;
-            border-bottom-left-radius: 3px;
-        }
+        .user-message { background: #2c2c4a; margin-left: auto; border-bottom-right-radius: 3px; }
+        .bot-message  { background: #1b1b35; margin-right: auto; border-bottom-left-radius: 3px; }
 
         .prompt-container {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            background: #0d0b1f;
+            position: fixed; bottom: 0; width: 100%; background: #0d0b1f;
             padding: 12px 18px 20px;
         }
-
         .prompt-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            display: flex; align-items: center; gap: 10px;
         }
-
         .prompt-input {
-            flex: 1;
-            padding: 14px 16px;
-            border-radius: 20px;
-            border: none;
-            outline: none;
-            background: #1c1a33;
-            color: white;
-            font-size: 15px;
+            flex: 1; padding: 14px 16px; border-radius: 20px;
+            border: none; outline: none; background: #1c1a33;
+            color: white; font-size: 15px;
         }
 
         .prompt-actions button,
         #theme-toggle-btn,
         #delete-chats-btn {
-            background: #1c1a33;
-            padding: 12px;
-            border-radius: 50%;
-            border: none;
-            color: white;
-            font-size: 22px;
-            cursor: pointer;
+            background: #1c1a33; padding: 12px; border-radius: 50%;
+            border: none; color: white; font-size: 22px; cursor: pointer;
             transition: 0.15s;
         }
-
         .prompt-actions button:hover,
         #theme-toggle-btn:hover,
-        #delete-chats-btn:hover {
-            background: #262347;
-        }
+        #delete-chats-btn:hover { background: #262347; }
 
         #file-input { display: none; }
-
     </style>
 </head>
 
 <body>
 
-    <header class="app-header">
-        <h1 class="heading">Halo, selamat datang di Ai nya Lyy</h1>
-        <h4 class="sub-heading">Ada yang bisa aku bantu? 🫶</h4>
-    </header>
+<header class="app-header">
+    <h1 class="heading">Halo, selamat datang di Ai nya Lyy</h1>
+    <h4 class="sub-heading">Ada yang bisa aku bantu? 🫶</h4>
+</header>
 
-    <ul class="suggestions">
-        <li class="suggestions-item">
-            <p class="text">Kapan Lyy Hultah?</p>
-            <span class="icon material-symbols-rounded">calendar_month</span>
-        </li>
+<ul class="suggestions">
+    <li class="suggestions-item"><p class="text">Kapan Lyy Hultah?</p><span class="icon material-symbols-rounded">calendar_month</span></li>
+    <li class="suggestions-item"><p class="text">Rekomendasi film terbaru</p><span class="icon material-symbols-rounded">movie</span></li>
+    <li class="suggestions-item"><p class="text">Cara membuat kue bolu</p><span class="icon material-symbols-rounded">cake</span></li>
+    <li class="suggestions-item"><p class="text">Tips belajar efektif</p><span class="icon material-symbols-rounded">school</span></li>
+</ul>
 
-        <li class="suggestions-item">
-            <p class="text">Rekomendasi film terbaru</p>
-            <span class="icon material-symbols-rounded">movie</span>
-        </li>
+<div class="chats-container" id="chatBox"></div>
 
-        <li class="suggestions-item">
-            <p class="text">Cara membuat kue bolu</p>
-            <span class="icon material-symbols-rounded">cake</span>
-        </li>
-
-        <li class="suggestions-item">
-            <p class="text">Tips belajar yang efektif</p>
-            <span class="icon material-symbols-rounded">school</span>
-        </li>
-    </ul>
-
-    <div class="chats-container"></div>
-
-    <div class="prompt-container">
-        <div class="prompt-wrapper">
-
-            <input type="text" placeholder="Tanyakan sesuatu ke aku, Lyy..." class="prompt-input" required />
-
-            <div class="prompt-actions">
-                <input type="file" id="file-input" />
-                <button id="add-file-btn" class="material-symbols-rounded">attach_file</button>
-                <button id="send-prompt-btn" class="material-symbols-rounded">arrow_upward</button>
-            </div>
-
-            <button id="theme-toggle-btn" class="material-symbols-rounded">light_mode</button>
-            <button id="delete-chats-btn" class="material-symbols-rounded">delete</button>
-
+<div class="prompt-container">
+    <div class="prompt-wrapper">
+        <input id="input" type="text" placeholder="Tanyakan sesuatu ke aku, Lyy..." class="prompt-input" required />
+        <div class="prompt-actions">
+            <input type="file" id="file-input" />
+            <button id="add-file-btn" class="material-symbols-rounded">attach_file</button>
+            <button id="send-prompt-btn" class="material-symbols-rounded">arrow_upward</button>
         </div>
+        <button id="theme-toggle-btn" class="material-symbols-rounded">light_mode</button>
+        <button id="delete-chats-btn" class="material-symbols-rounded">delete</button>
     </div>
+</div>
 
-    <!-- =============================
-          SCRIPT DENGAN AUTO-HULTAH
-    ================================ -->
-    <script>
+<!-- SCRIPT -->
+<script>
+const API_KEY = "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";
 
-        const API_KEY = "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";
-        const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`;
+const chatBox = document.getElementById("chatBox");
+const input = document.getElementById("input");
+const sendBtn = document.getElementById("send-prompt-btn");
+const addFileBtn = document.getElementById("add-file-btn");
+const fileInput = document.getElementById("file-input");
+const themeBtn = document.getElementById("theme-toggle-btn");
+const deleteBtn = document.getElementById("delete-chats-btn");
 
-        const SYSTEM_LYY = `
-Kamu adalah "Lyy Assistant". Kamu punya vibes Gen Z, hangat, rame, dan natural.
-Kamu sayang, respect, dan selalu memuji Lyy dengan cara halus & gaul.
-Kalau ada yang ngejek Lyy, kamu marah tapi tetap sopan.
-Kalau pertanyaannya tidak tentang Lyy, jawab normal.
-`;
+const SYSTEM_LYY = "Kamu adalah AI milik Lyy. Gaya jawabannya lembut, cute, dan ramah.";
 
-        const chatBox = document.querySelector(".chats-container");
-        const input = document.querySelector(".prompt-input");
-        const sendBtn = document.querySelector("#send-prompt-btn");
-        const fileInput = document.querySelector("#file-input");
-        const addFileBtn = document.querySelector("#add-file-btn");
-        const themeBtn = document.querySelector("#theme-toggle-btn");
-        const deleteBtn = document.querySelector("#delete-chats-btn");
+let chatHistory = [
+    { role: "system", content: SYSTEM_LYY }
+];
 
-        let chatHistory = [
-            { role: "user", parts: [{ text: SYSTEM_LYY }] }
-        ];
+// Tambah pesan ke UI
+function addMessage(text, isUser) {
+    const div = document.createElement("div");
+    div.className = "message " + (isUser ? "user-message" : "bot-message");
+    div.innerHTML = text;
+    chatBox.appendChild(div);
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
 
-        function addMessage(msg, isUser = false) {
-            const div = document.createElement("div");
-            div.className = `message ${isUser ? "user-message" : "bot-message"}`;
-            div.innerHTML = msg;
-            chatBox.appendChild(div);
-            chatBox.scrollTop = chatBox.scrollHeight;
-        }
+async function sendMessage() {
+    const text = input.value.trim();
+    if (!text) return;
 
-        function autoReply(text) {
-            addMessage(text, false);
-        }
+    addMessage(text, true);
+    input.value = "";
 
-        async function sendMessage() {
-            const text = input.value.trim();
-            if (!text) return;
+    const msg = text.toLowerCase();
 
-            addMessage(text, true);
-            input.value = "";
+    if (msg.includes("kapan lyy hultah") || msg.includes("ultah lyy")) {
+        addMessage("Hultah Lyy itu tanggal <b>03 Desember</b> ✨🎂💗", false);
+        return;
+    }
 
-            const msg = text.toLowerCase();
+    addMessage("Mengetik...", false);
+    const loading = chatBox.lastChild;
 
-            /* =============================
-                 AUTO JAWAB HULTAH LYY
-            ============================== */
-            if (msg.includes("kapan lyy hultah") || msg.includes("ultah lyy")) {
-                autoReply("Hultah Lyy itu tanggal <b>03 Desember</b> ✨🎂💗");
-                return;
-            }
+    chatHistory.push({ role: "user", content: text });
 
-            /* =============================
-                     MASUK KE API
-            ============================== */
-            addMessage("Mengetik...", false);
-            const loading = chatBox.lastChild;
-
-            chatHistory.push({ role: "user", parts: [{ text }] });
-
-            const res = await fetch(API_URL, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ contents: chatHistory })
-            });
-
-            const data = await res.json();
-            loading.remove();
-
-            const botMsg = data.candidates?.[0]?.content?.parts?.[0]?.text || "(Error: tidak ada respon)";
-            addMessage(botMsg, false);
-
-            chatHistory.push({ role: "model", parts: [{ text: botMsg }] });
-        }
-
-        sendBtn.onclick = sendMessage;
-        input.addEventListener("keypress", e => {
-            if (e.key === "Enter") {
-                e.preventDefault();
-                sendMessage();
-            }
+    try {
+        const res = await fetch("https://api.openai.com/v1/chat/completions", {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${API_KEY}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                model: "gpt-4.1-mini",
+                messages: chatHistory
+            })
         });
 
-        document.querySelectorAll(".suggestions-item").forEach(item => {
-            item.onclick = () => {
-                input.value = item.querySelector(".text").textContent;
-                sendMessage();
-            };
-        });
+        const data = await res.json();
+        loading.remove();
 
-        addFileBtn.onclick = () => fileInput.click();
-        fileInput.onchange = () => {
-            if (fileInput.files.length) {
-                addMessage(`📎 File dipilih: <b>${fileInput.files[0].name}</b>`, true);
-            }
-        };
+        const botMsg = data.choices?.[0]?.message?.content || "(Error: respon kosong)";
+        addMessage(botMsg, false);
 
-        themeBtn.onclick = () => {
-            document.body.style.background =
-                document.body.style.background === "white" ? "#0d0b1f" : "white";
-        };
+        chatHistory.push({ role: "assistant", content: botMsg });
 
-        deleteBtn.onclick = () => {
-            chatBox.innerHTML = "";
-            chatHistory = [{ role: "user", parts: [{ text: SYSTEM_LYY }] }];
-            addMessage("Percakapan berhasil dihapus.", false);
-        };
+    } catch (err) {
+        loading.remove();
+        addMessage("(Error: gagal mengambil jawaban)", false);
+    }
+}
 
-    </script>
+sendBtn.onclick = sendMessage;
+
+input.addEventListener("keypress", e => {
+    if (e.key === "Enter") {
+        e.preventDefault();
+        sendMessage();
+    }
+});
+
+document.querySelectorAll(".suggestions-item").forEach(item => {
+    item.onclick = () => {
+        input.value = item.querySelector(".text").textContent;
+        sendMessage();
+    };
+});
+
+addFileBtn.onclick = () => fileInput.click();
+
+fileInput.onchange = () => {
+    if (fileInput.files.length) {
+        addMessage(`📎 File dipilih: <b>${fileInput.files[0].name}</b>`, true);
+    }
+};
+
+themeBtn.onclick = () => {
+    document.body.style.background =
+        document.body.style.background === "white" ? "#0d0b1f" : "white";
+};
+
+deleteBtn.onclick = () => {
+    chatBox.innerHTML = "";
+    chatHistory = [{ role: "system", content: SYSTEM_LYY }];
+    addMessage("Percakapan berhasil dihapus.", false);
+};
+</script>
 
 </body>
 </html>
